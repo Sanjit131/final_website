@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-------------------- CREATED BY --------------------
+    ASHWATH M, Deputy Sergeant-At-Arms, RCREC 24-25
+    SANJEEVAN HARI SUDHAKAR, Sergeant-At-Arms, RCREC 24-25
+    SUJITH S, Associate Professional service Director and Technical Head, RCREC 24-25---------------->
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Rotaract Club of REC</title>
+  <meta name="description" content />
+  <!-- Favicons -->
+  <link href="assets/24-25/RCREC 24-25 Logo Transparent.ico" rel="icon" />
+  <link href="assets/24-25/24-25 Logo Transparent.ico" rel="apple-touch-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+    rel="stylesheet">
+  <!-- Bootstap CSS Files -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/@icon/icofont@1.0.1-alpha.1/icofont.min.css" rel="stylesheet" />
+
+  <!-- Splide CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.14/dist/css/splide.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.14/dist/css/splide-core.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.14/dist/js/splide.min.js"></script>
+  <!-- Custom CSS -->
+  <link href="style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/loader.css">
+  <style>
+    body {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    .navbar {
+      background-color: #b43c5a;
+    }
+
+    .nav-link {
+      color: #000000;
+    }
+
+    .nav-link:hover {
+      color: #8d163f;
+    }
+
+    .footer {
+      background-color: #45081f;
+    }
+
+    .footer .text {
+      color: #ffffff;
+    }
+
+    .bg-image-section {
+      background-image: url("rec logo.svg");
+      background-size: cover;
+      background-position: center;
+      opacity: 0.1;
+      height: 100vh;
+      position: relative;
+      z-index: -1;
+    }
+  </style>
+
+</head>
+
+<style>
+  .slider-mask {
+    height: 100vh;
+    width: 100vw;
+    background: rgb(1, 0, 14);
+    background: -moz-linear-gradient(36deg, rgba(1, 0, 14, 0.6502976190476191) 30%, rgba(255, 255, 255, 0) 100%);
+    background: -webkit-linear-gradient(36deg, rgba(1, 0, 14, 0.6502976190476191) 30%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(36deg, rgba(1, 0, 14, 0.6502976190476191) 30%, rgba(255, 255, 255, 0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#01000e", endColorstr="#ffffff", GradientType=1);
+  }
+
+
+  h2.display-4 {
+    font-size: 3.5rem;
+    line-height: 1.2;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  h2.display-4 span {
+    font-weight: bold;
+    color: #ffffff;
+  }
+
+  p.lead {
+    font-size: 2.25rem;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+
+
+  @media (max-width: 768px) {
+    h2.display-4 {
+      font-size: 1.8rem;
+      margin: 0 auto;
+    }
+
+    p.lead {
+      font-size: 1rem;
+    }
+
+    .container {
+      position: absolute;
+      bottom: 20%;
+      left: 10%;
+      transform: translateX(0);
+    }
+  }
+
+  @media (max-width: 480px) {
+    h2.display-4 {
+      font-size: 1.5rem;
+      margin: 0 auto;
+    }
+
+    p.lead {
+      font-size: 0.9rem;/
+    }
+
+    .container {
+      bottom: 15%;
+      left: 5%;
+      transform: translateX(0);
+      width: 90%;
+    }
+  }
+
+
+  .splide__slide img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+</style>
+
+<!-- Header -->
+<header class="header" id="header">
+  <nav class="custom-nav custom-nav-small navbar navbar-expand-lg navbar-light bg-white" id="nav">
+    <a class="navbar-brand" href="index.html"><img src="assets/24-25/rec logo.png" alt="" class="img-fluid"
+        style="filter: drop-shadow(grey 0rem 0rem 20px);" /></a>
+
+    <div class="nav-menu collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="active" aria-current="page"><a href="index.html" >Home</a></li>
+        <li class="drop-down">
+          <a href="aboutus.html">About</a>
+          <ul>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="crew.html">Our Team</a></li>
+            <li><a href="avenues.html">Our Avenues</a></li>
+          </ul>
+        </li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="knowledge.html">Knowledge Center</a></li>
+      </ul>
+    </div>
+    <div class="dropdown34">
+      <button class="dropdown-toggle34">☰</button>
+      <div class="dropdown-menu34">
+        <a href="index.html">Home</a>
+        <div class="drop-down">
+          <a href="aboutus.html">About</a>
+          <ul>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="crew.html">Our Team</a></li>
+            <li><a href="avenues.html">Our Avenues</a></li>
+          </ul>
+          <a href="events.html">Events</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="knowledge.html">Knowledge Center</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- End Header -->
+
+<body>
+  <!-- Include loader at the start of body -->
+  <div id="include-loading"></div>
+  <style>
+    .slider-mask {
+      height: 100vh;
+      width: 100vw;
+      background: rgb(1, 0, 10);
+      background: -moz-linear-gradient(36deg, rgba(1, 0, 14, 0.6502976190476191) 15%, rgba(255, 255, 255, 0) 100%);
+      background: -webkit-linear-gradient(36deg, rgba(1, 0, 14, 0.6502976190476191) 15%, rgba(255, 255, 255, 0) 100%);
+      background: linear-gradient(36deg, rgba(1, 0, 14, 0.6502976190476191) 15%, rgba(255, 255, 255, 0) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#01000e", endColorstr="#ffffff", GradientType=1);
+    }
+  </style>
+  <div id="image-slider" class="splide">
+    <div class="splide__track">
+      <ul class="splide__list">
+
+        <li class="splide__slide">
+          <div class="splide__slide__container">
+            <div class="slider-mask"></div>
+            <img src="assets/24-25/home/gal (23).jpg" alt="">
+          </div>
+          <div class="container" style="position: absolute; bottom: calc(100vh/3); left: 50px;">
+            <div style="width: calc(100vw/1.5);">
+              <h2 class="display-4 font-weight-bold text-white">Welcome to <span>Rotaract Club of REC</span></h2>
+              <p class="lead text-white">Make Wonders!!</p>
+            </div>
+          </div>
+        </li>
+        <li class="splide__slide">
+          <div class="splide__slide__container">
+            <div class="slider-mask"></div>
+            <img src="assets/24-25/home/gal (7).jpg" alt="">
+          </div>
+          <div class="container" style="position: absolute; bottom: calc(100vh/3); left: 50px;">
+            <div style="width: calc(100vw/1.5);">
+              <h2 class="display-4 font-weight-bold text-white">Welcome to <span>Rotaract Club of REC</span></h2>
+              <p class="lead text-white">Make Wonders!!</p>
+            </div>
+          </div>
+        </li>
+        <li class="splide__slide">
+          <div class="splide__slide__container">
+            <div class="slider-mask"></div>
+            <img src="assets/24-25/home/IMG_5941.JPG" alt="">
+          </div>
+          <div class="container" style="position: absolute; bottom: calc(100vh/3); left: 50px;">
+            <div style="width: calc(100vw/1.5);">
+              <h2 class="display-4 font-weight-bold text-white">Welcome to <span>Rotaract Club of REC</span></h2>
+              <p class="lead text-white">Make Wonders!!</p>
+            </div>
+          </div>
+        </li>
+        <li class="splide__slide">
+          <div class="splide__slide__container">
+            <div class="slider-mask"></div>
+            <img src="assets/24-25/home/IMG_3366.JPG" alt="">
+          </div>
+          <div class="container" style="position: absolute; bottom: calc(100vh/3); left: 50px;">
+            <div style="width: calc(100vw/1.5);">
+              <h2 class="display-4 font-weight-bold text-white">Welcome to <span>Rotaract Club of REC</span></h2>
+              <p class="lead text-white">Make Wonders!!</p>
+            </div>
+          </div>
+        </li>
+        <li class="splide__slide">
+          <div class="splide__slide__container">
+            <div class="slider-mask"></div>
+            <img src="assets/24-25/home/gal (21).jpg" alt="">
+          </div>
+          <div class="container" style="position: absolute; bottom: calc(100vh/3); left: 50px;">
+            <div style="width: calc(100vw/1.5);">
+              <h2 class="display-4 font-weight-bold text-white">Welcome to <span>Rotaract Club of REC</span></h2>
+              <p class="lead text-white">Make Wonders!!</p>
+            </div>
+          </div>
+        </li>
+
+
+      </ul>
+    </div>
+  </div>
+  </div>
+
+    <!-- Footer -->
+    <footer class="d-flex flex-wrap justify-content-center align-items-center py-3 border-top fixed-bottom"
+      style="background-color: #ffffff;">
+      <div class="d-flex flex-column align-items-center text-center">
+        <span class="text-body-secondary">© 2024 RCREC. All rights reserved.</span>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script>
+
+      // Menu Reactiveness
+      window.addEventListener("scroll", function () {
+        const nav = document.querySelector(".custom-nav");
+        if (window.scrollY > 50) {
+          nav.classList.remove("custom-nav-small");
+          nav.classList.add("custom-nav-large");
+        } else {
+          nav.classList.remove("custom-nav-large");
+          nav.classList.add("custom-nav-small");
+        }
+      });
+
+      const dropdownToggle = document.querySelector('.dropdown-toggle34');
+      const dropdown = document.querySelector('.dropdown34');
+
+      dropdownToggle.addEventListener('click', () => {
+        dropdown.classList.toggle('active');
+      });
+      
+      document.addEventListener("DOMContentLoaded", function () {
+        const sections = document.querySelectorAll('.fade-section');
+        const options = {
+          threshold: 0.1
+        };
+
+        function fadeInSection(entries, observer) {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('fade-in');
+              observer.unobserve(entry.target);
+            }
+          }
+          );
+        }
+
+        const observer = new IntersectionObserver(fadeInSection, options);
+
+        sections.forEach(section => {
+          observer.observe(section);
+        });
+      });
+      document.addEventListener('DOMContentLoaded', function () {
+        new Splide('#image-slider', {
+          width: '100vw',
+          height: '100vh',
+          autoplay: true,
+          type: 'fade',
+          pagination: false,
+          interval: 5000,
+          drag: true,
+          rewind: true,
+          cover: true,
+          arrows: false,
+          pauseOnHover: false,
+          pauseOnFocus: false
+        }).mount();
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const sections = document.querySelectorAll('.fade-section');
+        const options = {
+          threshold: 0.1
+        };
+
+        function fadeInSection(entries, observer) {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('fade-in');
+              observer.unobserve(entry.target);
+            }
+          });
+        }
+
+        const observer = new IntersectionObserver(fadeInSection, options);
+
+        sections.forEach(section => {
+          observer.observe(section);
+        });
+      });
+
+
+      const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+      const mobileNav = document.querySelector('.mobile-nav');
+      const body = document.body;
+
+      mobileNavToggle.addEventListener('click', () => {
+        body.classList.toggle('mobile-nav-active');
+      });
+
+
+    </script>
+
+</body>
+
+</html>

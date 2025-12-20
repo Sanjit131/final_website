@@ -14,7 +14,7 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
+
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
         // Scrolling down and past 100px
         setIsVisible(false);
@@ -22,7 +22,7 @@ const Navbar = () => {
         // Scrolling up
         setIsVisible(true);
       }
-      
+
       setLastScrollY(currentScrollY);
     };
 
@@ -31,7 +31,7 @@ const Navbar = () => {
   }, [lastScrollY]);
 
   return (
-    <motion.nav 
+    <motion.nav
       className="bg-primary bg-opacity-25 text-white fixed top-4 z-50 left-0 right-0 mx-auto rounded-full shadow-2xl backdrop-blur-md border border-secondary border-opacity-50 w-[95%] max-w-4xl"
       initial={{ y: 0 }}
       animate={{ y: isVisible ? 0 : -100 }}
@@ -43,7 +43,7 @@ const Navbar = () => {
           <Link to="/" className="flex items-center space-x-2">
             <img
               src="/club_logo_1_1.png"
-              alt="RCREC logo"
+              alt="RACREC logo"
               loading="eager"
               decoding="async"
               className="w-10 h-10 rounded-full object-cover shadow-lg border-2 border-white border-opacity-30 bg-white"
@@ -56,7 +56,7 @@ const Navbar = () => {
             <Link to="/" className="hover:text-primary transition-colors px-3 py-2 rounded-full hover:bg-secondary hover:bg-opacity-30">
               Home
             </Link>
-            
+
             {/* About Dropdown */}
             <div className="relative">
               <button

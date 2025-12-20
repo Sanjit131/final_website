@@ -11,10 +11,10 @@ const Footer = () => {
             <div className="flex items-center space-x-2">
               <img
                 src="/club_logo_1_1.png"
-                alt="RCREC logo"
+                alt="RACREC logo"
                 className="w-10 h-10 rounded-full object-cover bg-white"
               />
-              <span className="font-bold text-xl">RCREC</span>
+              <span className="font-bold text-xl">RACREC</span>
             </div>
             <p className="text-gray-300 text-sm leading-relaxed">
               Empowering leaders and serving communities through meaningful initiatives and impactful projects at Rajalakshmi Engineering College.
@@ -50,6 +50,11 @@ const Footer = () => {
                   Gallery
                 </Link>
               </li>
+              <li>
+                <a href="/old_site/index.html" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-accent transition-colors">
+                  Old Website
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -59,8 +64,8 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <FiMail className="w-5 h-5 text-primary" />
-                <a 
-                  href="mailto:rotaract@rajalakshmi.edu.in" 
+                <a
+                  href="mailto:rotaract@rajalakshmi.edu.in"
                   className="text-gray-300 hover:text-accent transition-colors"
                 >
                   rotaract@rajalakshmi.edu.in
@@ -80,21 +85,21 @@ const Footer = () => {
           {/* Column 4: Follow Us */}
           <div className="space-y-4">
             <h3 className="font-semibold text-lg">Follow Us</h3>
-              <div className="flex space-x-4">
-                <a
-                  href="https://www.instagram.com/rotaractrec/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 bg-white bg-opacity-10 rounded-full flex items-center justify-center hover:bg-primary hover:bg-opacity-20 transition-colors duration-300"
-                >
+            <div className="flex space-x-4">
+              <a
+                href="https://www.instagram.com/rotaractrec/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-12 h-12 bg-white bg-opacity-10 rounded-full flex items-center justify-center hover:bg-primary hover:bg-opacity-20 transition-colors duration-300"
+              >
                 <FiInstagram className="w-6 h-6" />
               </a>
-                <a
-                  href="https://www.linkedin.com/company/rotaract-rec/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 bg-white bg-opacity-10 rounded-full flex items-center justify-center hover:bg-primary hover:bg-opacity-20 transition-colors duration-300"
-                >
+              <a
+                href="https://www.linkedin.com/company/rotaract-rec/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-12 h-12 bg-white bg-opacity-10 rounded-full flex items-center justify-center hover:bg-primary hover:bg-opacity-20 transition-colors duration-300"
+              >
                 <FiLinkedin className="w-6 h-6" />
               </a>
             </div>
@@ -110,7 +115,7 @@ const Footer = () => {
         <div className="container-custom py-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-300 text-sm">
-              © 2024 Rotaract Club of REC. All rights reserved.
+              © 2025 Rotaract Club of REC
             </p>
             <p className="text-gray-300 text-sm mt-2 md:mt-0">
               Powered by passion, driven by purpose.

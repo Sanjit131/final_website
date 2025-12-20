@@ -38,7 +38,7 @@ export default function HomePage() {
       description: "A successful blood donation camp uniting students for a life-saving cause.",
       image: "/Communityservice/Udhiram.jpg"
     },
-        {
+    {
       id: 3,
       title: "Victo-Ryla",
       date: "30 April 2025",
@@ -52,21 +52,21 @@ export default function HomePage() {
 
   const testimonials = [
     {
-      name: "Priya Sharma",
-      role: "President 2023-24",
-      quote: "RCREC has transformed my leadership skills and taught me the true meaning of service above self.",
+      name: "Bhavanishraj",
+      role: "President 2024-25",
+      quote: "Being part of a team often puts you in situations you don’t feel fully ready for. Over time, those moments teach you how to stay calm, think clearly, and speak up without overthinking every word. The pressure doesn’t really go away, but you learn how to handle it better and that gradually changes how you carry yourself and face challenges.",
       image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face"
     },
     {
-      name: "Arjun Kumar",
-      role: "Vice President",
-      quote: "The projects we've undertaken have made a real difference in our community. It's incredibly rewarding.",
+      name: "Rethinaath S",
+      role: "Vice President 2024-25",
+      quote: "Rotaract club of REC is the biggest milestone in my life. I got to work with the people I love spending time with. The works I did, made me set the path for my future, opening new windows. One of  the best 2yrs of my lifetime.",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
     },
     {
       name: "Meera Patel",
       role: "Secretary",
-      quote: "Being part of RCREC has given me opportunities to grow both personally and professionally.",
+      quote: "Being part of RACREC has given me opportunities to grow both personally and professionally.",
       image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face"
     }
   ];
@@ -83,9 +83,8 @@ export default function HomePage() {
               alt="Hero Background"
               loading={i === 0 ? "eager" : "lazy"}
               decoding="async"
-              className={`absolute inset-0 w-full h-full object-cover filter brightness-110 contrast-105 saturate-110 transition-opacity duration-1000 ${
-                i === heroIndex ? 'opacity-100' : 'opacity-0'
-              }`}
+              className={`absolute inset-0 w-full h-full object-cover filter brightness-110 contrast-105 saturate-110 transition-opacity duration-1000 ${i === heroIndex ? 'opacity-100' : 'opacity-0'
+                }`}
             />
           ))}
           <div className="absolute inset-0 bg-black bg-opacity-30"></div>
@@ -96,14 +95,13 @@ export default function HomePage() {
                 key={i}
                 aria-label={`Go to slide ${i + 1}`}
                 onClick={() => setHeroIndex(i)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  i === heroIndex ? 'bg-white shadow-md w-6' : 'bg-white/50 hover:bg-white/80'
-                }`}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${i === heroIndex ? 'bg-white shadow-md w-6' : 'bg-white/50 hover:bg-white/80'
+                  }`}
               />
             ))}
           </div>
         </div>
-        
+
         <div className="relative z-10 container-custom flex items-center justify-between w-full">
           {/* Left Side - Text Content */}
           <motion.div
@@ -112,9 +110,9 @@ export default function HomePage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 font-sans text-left">
-            Creating Leaders.<br />
-            Crafting Legacies.
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 font-sans text-left" style={{ lineHeight: 'calc(1.2em + 5px)' }}>
+              Driven by Passion<br />
+              Defined by Impact
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-left">
               The Rotaract Club of Rajalakshmi Engineering College is where passion meets purpose. Discover how we're making a difference.
@@ -129,7 +127,7 @@ export default function HomePage() {
             </div>
           </motion.div>
 
-          {/* Right Side - RCREC Logo */}
+          {/* Right Side - RACREC Logo */}
           <motion.div
             className="hidden lg:flex items-center justify-end pr-20 flex-1"
             initial={{ opacity: 0, x: 50 }}
@@ -138,7 +136,7 @@ export default function HomePage() {
           >
             <div className="text-right">
               <div className="w-56 h-56 md:w-64 md:h-64 flex items-center justify-center mb-4">
-                <img src="/club_logo_1_1.png" alt="RCREC logo" className="max-w-full max-h-full object-contain drop-shadow-2xl" />
+                <img src="/club_logo_1_1.png" alt="RACREC logo" className="max-w-full max-h-full object-contain drop-shadow-2xl" />
               </div>
               {/* <h2 className="text-3xl font-bold text-white">RACREC</h2>
               <p className="text-primary text-lg mt-2 font-semibold">Rotaract Club</p> */}
@@ -157,10 +155,10 @@ export default function HomePage() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-text-dark mb-4">
-              Our Impact in Numbers
+              What Sets Us Apart
             </h2>
             <p className="text-gray-600 text-lg">
-              Making a difference one project at a time
+              Together, We Make a Difference
             </p>
           </motion.div>
 
@@ -202,7 +200,7 @@ export default function HomePage() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-text-dark mb-4">
-              Our signature Projects
+              Our Flagship Projects
             </h2>
             <p className="text-gray-600 text-lg">
               Discover the impactful projects we've been working on
@@ -210,7 +208,7 @@ export default function HomePage() {
           </motion.div>
 
           {/* Circular Gallery */}
-          <CircularGallery 
+          <CircularGallery
             items={featuredProjects.map(project => ({
               image: project.image,
               text: project.title
@@ -246,10 +244,10 @@ export default function HomePage() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-text-dark mb-4">
-              What Our Members Say
+              From Our Members
             </h2>
             <p className="text-gray-600 text-lg">
-              Hear from the people who make RCREC special
+              Experiences that define who we are
             </p>
           </motion.div>
 
@@ -263,10 +261,10 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-              <div className="mb-4">
-                <h3 className="font-semibold text-text-dark">{testimonial.name}</h3>
-                <p className="text-sm text-gray-600">{testimonial.role}</p>
-              </div>
+                <div className="mb-4">
+                  <h3 className="font-semibold text-text-dark">{testimonial.name}</h3>
+                  <p className="text-sm text-gray-600">{testimonial.role}</p>
+                </div>
                 <p className="text-gray-700 italic">"{testimonial.quote}"</p>
               </motion.div>
             ))}

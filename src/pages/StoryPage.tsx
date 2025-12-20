@@ -6,7 +6,7 @@ const StoryPage = () => {
     {
       year: "2010",
       title: "Foundation",
-      description: "RCREC was established with a vision to empower young leaders and serve the community.",
+      description: "Rotaract Club of REC was established with a vision to empower young leaders and serve the community.",
       icon: FiHeart
     },
     {
@@ -53,7 +53,7 @@ const StoryPage = () => {
           />
           <div className="absolute inset-0 bg-black bg-opacity-60"></div>
         </div>
-        
+
         <motion.div
           className="relative z-10 text-center text-white px-4"
           initial={{ opacity: 0, y: 50 }}
@@ -64,7 +64,7 @@ const StoryPage = () => {
             Our Story
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-            From humble beginnings to impactful leadership - discover the journey that shaped RCREC into what it is today.
+            From humble beginnings to impactful leadership - discover the journey that shaped RACREC into what it is today.
           </p>
         </motion.div>
       </section>
@@ -138,9 +138,8 @@ const StoryPage = () => {
             {timeline.map((item, index) => (
               <motion.div
                 key={item.year}
-                className={`relative flex items-center mb-12 ${
-                  index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
-                }`}
+                className={`relative flex items-center mb-12 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
+                  }`}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

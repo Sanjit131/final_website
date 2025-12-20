@@ -83,7 +83,7 @@ const JoinUsPage = () => {
           />
           <div className="absolute inset-0 bg-black bg-opacity-60"></div>
         </div>
-        
+
         <motion.div
           className="relative z-10 text-center text-white px-4"
           initial={{ opacity: 0, y: 50 }}
@@ -91,7 +91,7 @@ const JoinUsPage = () => {
           transition={{ duration: 0.8 }}
         >
           <h1 className="text-4xl md:text-6xl font-bold mb-6 font-sans">
-            Join RCREC
+            Join RACREC
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
             Be part of a community that empowers leaders and serves with purpose. Start your journey of impact today.
@@ -109,7 +109,7 @@ const JoinUsPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-text-dark mb-4">
-              Why Join RCREC?
+              Why Join RACREC?
             </h2>
             <p className="text-gray-600 text-lg">
               Discover the amazing benefits of being part of our community
@@ -150,7 +150,7 @@ const JoinUsPage = () => {
               Apply to Join
             </h2>
             <p className="text-gray-600 text-lg">
-              Fill out the form below to start your journey with RCREC
+              Fill out the form below to start your journey with RACREC
             </p>
           </motion.div>
 
@@ -261,7 +261,7 @@ const JoinUsPage = () => {
 
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Why do you want to join RCREC? *
+                  Why do you want to join RACREC? *
                 </label>
                 <textarea
                   name="whyJoin"
@@ -270,14 +270,14 @@ const JoinUsPage = () => {
                   required
                   rows={4}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                  placeholder="Tell us about your motivation to join RCREC..."
+                  placeholder="Tell us about your motivation to join RACREC..."
                 />
               </div>
 
-                             <button
-                 type="submit"
-                 className="w-full bg-primary text-white py-4 rounded-lg font-semibold hover:bg-secondary transition-colors"
-               >
+              <button
+                type="submit"
+                className="w-full bg-primary text-white py-4 rounded-lg font-semibold hover:bg-secondary transition-colors"
+              >
                 Submit Application
               </button>
             </form>

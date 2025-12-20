@@ -83,7 +83,7 @@ const ImpactPage = () => {
       description: "Strengthening global bonds through our first-ever Twin Club Agreement.",
       image: "/internationalservice/Letterhead_Exchange.jpg",
       category: "international",
-      details: "The International Service Avenue of RCREC achieved a major milestone this year with the signing of its first Twin Club Agreement, fostering global partnerships, cultural exchange, and collaborative projects that align with international goals."
+      details: "The International Service Avenue of RACREC achieved a major milestone this year with the signing of its first Twin Club Agreement, fostering global partnerships, cultural exchange, and collaborative projects that align with international goals."
     },
     {
       id: 14,
@@ -137,8 +137,8 @@ const ImpactPage = () => {
       category: "professional",
       details: "A virtual session introducing students to UI/UX design with a focus on Figma, covering design thinking, user-centered approaches, and practical demonstrations."
     },
-    
-    
+
+
     // Club Service events from public/clubservice
     {
       id: 7,
@@ -180,8 +180,8 @@ const ImpactPage = () => {
     { id: 'professional', label: 'Professional Service' }
   ];
 
-  const filteredProjects = activeFilter === 'all' 
-    ? projects 
+  const filteredProjects = activeFilter === 'all'
+    ? projects
     : projects.filter(project => project.category === activeFilter);
 
   return (
@@ -218,11 +218,10 @@ const ImpactPage = () => {
               <button
                 key={filter.id}
                 onClick={() => setActiveFilter(filter.id)}
-                className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-                  activeFilter === filter.id
+                className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${activeFilter === filter.id
                     ? 'bg-primary text-white shadow-lg'
                     : 'bg-white text-gray-600 hover:bg-gray-50 hover:text-text-dark'
-                }`}
+                  }`}
               >
                 {filter.label}
               </button>
@@ -250,7 +249,7 @@ const ImpactPage = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 20 }}
-                    transition={{ 
+                    transition={{
                       duration: 0.3,
                       delay: index * 0.05
                     }}
