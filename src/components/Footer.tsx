@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { FiInstagram, FiLinkedin, FiMail, FiMapPin } from 'react-icons/fi';
+import { FiInstagram, FiLinkedin, FiMail, FiMapPin, FiPhoneCall } from 'react-icons/fi';
+import { BsFillWrenchAdjustableCircleFill, BsWhatsapp } from 'react-icons/bs';
 
 const Footer = () => {
   return (
@@ -11,10 +12,10 @@ const Footer = () => {
             <div className="flex items-center space-x-2">
               <img
                 src="/club_logo_1_1.png"
-                alt="RACREC logo"
-                className="w-10 h-10 rounded-full object-cover bg-white"
+                alt="Rotaract club of rec logo"
+                className="w-12 h-12 object-contain"
               />
-              <span className="font-bold text-xl">RACREC</span>
+              <span className="font-bold text-xl">Rotaract REC</span>
             </div>
             <p className="text-gray-300 text-sm leading-relaxed">
               Empowering leaders and serving communities through meaningful initiatives and impactful projects at Rajalakshmi Engineering College.
@@ -63,6 +64,12 @@ const Footer = () => {
             <h3 className="font-semibold text-lg">Contact</h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
+                <FiPhoneCall className="w-5 h-5 text-primary" />
+                <p className="text-gray-300 text-sm">
+                  +91 9176163275
+                </p>
+              </div>
+              <div className="flex items-center space-x-3">
                 <FiMail className="w-5 h-5 text-primary" />
                 <a
                   href="mailto:rotaract@rajalakshmi.edu.in"
@@ -86,6 +93,14 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="font-semibold text-lg">Follow Us</h3>
             <div className="flex space-x-4">
+              <a
+                href="https://chat.whatsapp.com/EzRToM7mFcRBHNdfvJzis4"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-12 h-12 bg-white bg-opacity-10 rounded-full flex items-center justify-center hover:bg-primary hover:bg-opacity-20 transition-colors duration-300"
+              >
+                <BsWhatsapp className="w-6 h-6" />
+              </a>
               <a
                 href="https://www.instagram.com/rotaractrec/"
                 target="_blank"

@@ -43,12 +43,12 @@ const Navbar = () => {
           <Link to="/" className="flex items-center space-x-2">
             <img
               src="/club_logo_1_1.png"
-              alt="RACREC logo"
+              alt="Rotaract club of rec logo"
               loading="eager"
-              decoding="async"
-              className="w-10 h-10 rounded-full object-cover shadow-lg border-2 border-white border-opacity-30 bg-white"
+              className="w-12 h-12 md:w-16 md:h-16 object-contain"
             />
-            <span className="font-bold text-xl">RACREC</span>
+            <span className="font-bold text-lg md:text-xl hidden sm:block">Rotaract Club of REC</span>
+            <span className="font-bold text-lg block sm:hidden">RACREC</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -115,7 +115,7 @@ const Navbar = () => {
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
-            className="md:hidden fixed top-20 right-4 w-64 h-screen bg-primary bg-opacity-25 backdrop-blur-md shadow-2xl rounded-2xl border border-secondary border-opacity-50"
+            className="md:hidden fixed top-20 right-4 w-64 max-h-[calc(100vh-6rem)] overflow-y-auto bg-primary bg-opacity-90 backdrop-blur-md shadow-2xl rounded-2xl border border-secondary border-opacity-50"
           >
             <div className="p-6 space-y-4">
               <Link

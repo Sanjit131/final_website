@@ -72,6 +72,9 @@ def add_project():
     # Get form data
     title = request.form.get('title')
     description = request.form.get('description')
+    one_liner = request.form.get('oneLiner', '')
+    event_date = request.form.get('eventDate', datetime.now().strftime('%d-%m-%Y'))
+    venue = request.form.get('venue', 'RACREC')
     avenue = request.form.get('avenue')
     is_signature = request.form.get('isSignature') == 'true'
     status = request.form.get('status', 'active')
@@ -95,6 +98,9 @@ def add_project():
         'id': len(projects) + 1,
         'title': title,
         'description': description,
+        'oneLiner': one_liner,
+        'eventDate': event_date,
+        'venue': venue,
         'avenue': avenue,
         'isSignature': is_signature,
         'status': status,
@@ -131,6 +137,9 @@ def update_project(project_id):
     # Get form data
     title = request.form.get('title')
     description = request.form.get('description')
+    one_liner = request.form.get('oneLiner', '')
+    event_date = request.form.get('eventDate', datetime.now().strftime('%d-%m-%Y'))
+    venue = request.form.get('venue', 'RACREC')
     avenue = request.form.get('avenue')
     is_signature = request.form.get('isSignature') == 'true'
     status = request.form.get('status', 'active')
@@ -158,6 +167,9 @@ def update_project(project_id):
         'id': project_id,
         'title': title,
         'description': description,
+        'oneLiner': one_liner,
+        'eventDate': event_date,
+        'venue': venue,
         'avenue': avenue,
         'isSignature': is_signature,
         'status': status,

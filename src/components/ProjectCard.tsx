@@ -36,22 +36,22 @@ const ProjectCard = ({ title, date, location, description, image, details, galle
             className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
           />
         </div>
-        
+
         <div className="p-4">
           <h3 className="font-bold text-lg text-text-dark mb-2">{title}</h3>
-          
+
           <div className="flex items-center text-sm text-gray-600 mb-2">
             <FiCalendar className="w-4 h-4 mr-1" />
             <span>{date}</span>
           </div>
-          
+
           <div className="flex items-center text-sm text-gray-600 mb-3">
             <FiMapPin className="w-4 h-4 mr-1" />
             <span>{location}</span>
           </div>
-          
+
           <p className="text-gray-700 text-sm mb-4 line-clamp-2">{description}</p>
-          
+
           <button className="text-primary font-semibold hover:text-secondary transition-colors">
             Learn More
           </button>
@@ -79,7 +79,7 @@ const ProjectCard = ({ title, date, location, description, image, details, galle
                 <img
                   src={image}
                   alt={title}
-                  className="w-full h-48 object-cover rounded-t-lg"
+                  className="w-full h-auto rounded-t-lg"
                 />
                 <button
                   onClick={() => setIsModalOpen(false)}
@@ -88,10 +88,10 @@ const ProjectCard = ({ title, date, location, description, image, details, galle
                   <FiX className="w-5 h-5" />
                 </button>
               </div>
-              
+
               <div className="p-6">
                 <h2 className="text-2xl font-bold text-text-dark mb-4">{title}</h2>
-                
+
                 <div className="flex items-center text-sm text-gray-600 mb-4">
                   <FiCalendar className="w-4 h-4 mr-2" />
                   <span>{date}</span>
@@ -99,16 +99,16 @@ const ProjectCard = ({ title, date, location, description, image, details, galle
                   <FiMapPin className="w-4 h-4 mr-2" />
                   <span>{location}</span>
                 </div>
-                
+
                 <p className="text-gray-700 mb-4">{description}</p>
-                
+
                 {details && (
                   <div className="mb-6">
                     <h3 className="font-semibold text-lg mb-2">Event Details</h3>
                     <p className="text-gray-700">{details}</p>
                   </div>
                 )}
-                
+
                 {gallery && gallery.length > 0 && (
                   <div>
                     <h3 className="font-semibold text-lg mb-3">Event Gallery</h3>

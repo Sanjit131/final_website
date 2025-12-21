@@ -4,15 +4,33 @@ import { Link } from 'react-router-dom';
 import { FiUsers, FiAward, FiHeart, FiGlobe } from 'react-icons/fi';
 import AnimatedCounter from '../components/AnimatedCounter';
 import CircularGallery from '../components/CircularGallery';
+import { API_BASE_URL } from '../config';
+import { projects as defaultProjects } from '../data/projects';
 
 export default function HomePage() {
   const heroImages = [
     "/gallery/WhatsApp Image 2025-08-11 at 23.23.53_d9a3a398.jpg",
-    "/gallery/IMG-20250811-WA0092.jpg",
+    "/gallery/IMG_3163.JPG",
     "/gallery/IMG-20250811-WA0090.jpg",
   ];
 
   const [heroIndex, setHeroIndex] = useState(0);
+  const [projectCount, setProjectCount] = useState(defaultProjects.length);
+
+  useEffect(() => {
+    const fetchProjectCount = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/projects`);
+        if (response.ok) {
+          const data = await response.json();
+          setProjectCount(data.length);
+        }
+      } catch (error) {
+        console.error('Failed to fetch project count:', error);
+      }
+    };
+    fetchProjectCount();
+  }, []);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -24,11 +42,11 @@ export default function HomePage() {
   const featuredProjects = [
     {
       id: 1,
-      title: "Guru Prashansa",
+      title: "Anna Vriksha",
       date: "5th September 2024",
       location: "Rajalakshmi Engineering College",
       description: "A heartfelt Teachers' Day tribute celebrating mentorship and guidance.",
-      image: "/Communityservice/Guru_Prashansa.jpg"
+      image: "/Communityservice/food website.png"
     },
     {
       id: 2,
@@ -36,7 +54,7 @@ export default function HomePage() {
       date: "12th October 2024, 3rd April 2025",
       location: "Indoor Auditorium, Rajalakshmi Engineering College",
       description: "A successful blood donation camp uniting students for a life-saving cause.",
-      image: "/Communityservice/Udhiram.jpg"
+      image: "/Communityservice/udhiram website.png"
     },
     {
       id: 3,
@@ -44,7 +62,7 @@ export default function HomePage() {
       date: "30 April 2025",
       location: "Rajalakshmi Engineering College",
       description: "Empowering youth through leadership, confidence, and service.",
-      image: "/Professonialservice/Victo_Ryla.jpg",
+      image: "/Professonialservice/Victo_Ryla_New.png",
       category: "professional",
       details: "VICTO-RYLA '25 was a one-day leadership summit by the Rotaract Club of Rajalakshmi Engineering College, designed to inspire and empower young individuals through impactful sessions and engaging activities. With powerful talks from renowned speakers including entrepreneurs, innovators, AI specialists, and mental health advocates, the event fostered leadership skills, confidence, and a spirit of service among youth."
     },
@@ -54,19 +72,19 @@ export default function HomePage() {
     {
       name: "Bhavanishraj",
       role: "President 2024-25",
-      quote: "Being part of a team often puts you in situations you don’t feel fully ready for. Over time, those moments teach you how to stay calm, think clearly, and speak up without overthinking every word. The pressure doesn’t really go away, but you learn how to handle it better and that gradually changes how you carry yourself and face challenges.",
+      quote: "Rotaract strengthened my ability to handle pressure, communicate confidently through public speaking, lead with responsibility and manage teams effectively. These experiences significantly enhanced my confidence, resilience and leadership presence.",
       image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face"
     },
     {
-      name: "Rethinaath S",
+      name: "Rethinaath",
       role: "Vice President 2024-25",
       quote: "Rotaract club of REC is the biggest milestone in my life. I got to work with the people I love spending time with. The works I did, made me set the path for my future, opening new windows. One of  the best 2yrs of my lifetime.",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
     },
     {
-      name: "Meera Patel",
-      role: "Secretary",
-      quote: "Being part of RACREC has given me opportunities to grow both personally and professionally.",
+      name: "Kiruthika",
+      role: "Secretary 2024-25",
+      quote: "Rotaract enriched me with family-like friendships, a strong network, and personal growth from introvert to ambivert. It strengthened my confidence, communication, leadership, teamwork, and skills in documentation, crisis handling, and event management, shaping me into a more confident individual.",
       image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face"
     }
   ];
@@ -110,11 +128,11 @@ export default function HomePage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 font-sans text-left" style={{ lineHeight: 'calc(1.2em + 5px)' }}>
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 font-sans text-left leading-tight md:leading-[1.25]">
               Driven by Passion<br />
               Defined by Impact
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-left">
+            <p className="text-lg md:text-xl lg:text-2xl mb-6 md:mb-8 text-left">
               The Rotaract Club of Rajalakshmi Engineering College is where passion meets purpose. Discover how we're making a difference.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -162,10 +180,10 @@ export default function HomePage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
             {[
               { icon: FiUsers, number: 50, label: "Active members", color: "text-primary" },
-              { icon: FiAward, number: 37, label: "Projects Completed", color: "text-secondary" },
+              { icon: FiAward, number: projectCount, label: "Projects Completed", color: "text-secondary" },
               { icon: FiHeart, number: 5000, label: "Lives Impacted", color: "text-primary" },
               { icon: FiGlobe, number: 4, label: "Avenues", color: "text-secondary" }
             ].map((item, index) => (
@@ -216,7 +234,7 @@ export default function HomePage() {
             bend={3}
             textColor="#000000"
             borderRadius={0.05}
-            font="bold 24px Figtree"
+            font="bold 24px Arial"
             scrollSpeed={2}
             scrollEase={0.05}
           />

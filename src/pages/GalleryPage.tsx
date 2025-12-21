@@ -9,6 +9,7 @@ import { API_BASE_URL } from '../config';
 const GalleryPage = () => {
   const [index, setIndex] = useState(-1);
   const [photos, setPhotos] = useState<any[]>([]);
+  const [projectCount, setProjectCount] = useState(0);
 
   // Fetch gallery images from backend
   useEffect(() => {
@@ -16,7 +17,7 @@ const GalleryPage = () => {
       try {
         const response = await fetch(`${API_BASE_URL}/gallery`);
         const data = await response.json();
-        
+
         // Map backend gallery to photo format
         const galleryPhotos = data.map((img: any) => ({
           src: `${API_BASE_URL}/gallery-uploads/${img.filename}`,
@@ -24,16 +25,28 @@ const GalleryPage = () => {
           height: img.height,
           title: img.title
         }));
-        
+
         setPhotos(galleryPhotos);
       } catch (error) {
         console.log('Backend not available, using default gallery');
-        // Fallback to default photos
         setPhotos(defaultPhotos);
       }
     };
 
+    const fetchProjectCount = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/projects`);
+        if (response.ok) {
+          const data = await response.json();
+          setProjectCount(data.length);
+        }
+      } catch (error) {
+        console.error('Failed to fetch project count:', error);
+      }
+    };
+
     fetchGallery();
+    fetchProjectCount();
   }, []);
 
   // Default gallery photos (fallback)
@@ -67,7 +80,7 @@ const GalleryPage = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <section className="section-padding-top bg-white">
+      <section className="section-padding-top pt-40 bg-white">
         <div className="container-custom">
           <motion.div
             className="text-center"
@@ -141,7 +154,7 @@ const GalleryPage = () => {
               </div>
               <div>
                 <div className="text-3xl font-bold text-accent mb-2">
-                  25+
+                  {projectCount}+
                 </div>
                 <p className="text-gray-600">Events Captured</p>
               </div>

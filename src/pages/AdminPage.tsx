@@ -7,6 +7,9 @@ interface Project {
   id: number;
   title: string;
   description: string;
+  oneLiner: string;
+  eventDate: string;
+  venue: string;
   image: string;
   avenue: string;
   isSignature: boolean;
@@ -28,7 +31,7 @@ const AdminPage = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
   const [activeTab, setActiveTab] = useState<'projects' | 'gallery'>('projects');
-  
+
   // Projects state
   const [projects, setProjects] = useState<Project[]>([]);
   const [showForm, setShowForm] = useState(false);
@@ -40,6 +43,9 @@ const AdminPage = () => {
   const [formData, setFormData] = useState<Partial<Project>>({
     title: '',
     description: '',
+    oneLiner: '',
+    eventDate: new Date().toLocaleDateString('en-GB').replace(/\//g, '-'), // Initialize as dd-mm-yyyy
+    venue: 'RACREC',
     image: '',
     avenue: 'community',
     isSignature: false,
@@ -127,7 +133,7 @@ const AdminPage = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
-    
+
     if (type === 'checkbox') {
       setFormData(prev => ({
         ...prev,
@@ -161,6 +167,15 @@ const AdminPage = () => {
       const formDataToSend = new FormData();
       formDataToSend.append('password', password);
       formDataToSend.append('title', formData.title || '');
+      formDataToSend.append('oneLiner', formData.oneLiner || '');
+      // Ensure date is sent as dd-mm-yyyy
+      let dateToSend = formData.eventDate || '';
+      if (dateToSend.includes('-') && dateToSend.split('-')[0].length === 4) {
+        const [y, m, d] = dateToSend.split('-');
+        dateToSend = `${d}-${m}-${y}`;
+      }
+      formDataToSend.append('eventDate', dateToSend);
+      formDataToSend.append('venue', formData.venue || '');
       formDataToSend.append('description', formData.description || '');
       formDataToSend.append('avenue', formData.avenue || 'community');
       formDataToSend.append('isSignature', String(formData.isSignature || false));
@@ -215,7 +230,7 @@ const AdminPage = () => {
       showMessage('Please login first', 'error');
       return;
     }
-    
+
     setFormData(project);
     setEditingId(project.id);
     setImageFile(null);
@@ -411,9 +426,8 @@ const AdminPage = () => {
       {/* Message Alert */}
       {message && (
         <motion.div
-          className={`fixed top-20 right-4 px-6 py-3 rounded-lg text-white font-medium ${
-            messageType === 'success' ? 'bg-green-500' : 'bg-red-500'
-          }`}
+          className={`fixed top-20 right-4 px-6 py-3 rounded-lg text-white font-medium ${messageType === 'success' ? 'bg-green-500' : 'bg-red-500'
+            }`}
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 100 }}
@@ -431,11 +445,10 @@ const AdminPage = () => {
               setActiveTab('projects');
               fetchProjects();
             }}
-            className={`px-6 py-3 font-semibold transition ${
-              activeTab === 'projects'
-                ? 'text-primary border-b-2 border-primary'
-                : 'text-gray-600 hover:text-text-dark'
-            }`}
+            className={`px-6 py-3 font-semibold transition ${activeTab === 'projects'
+              ? 'text-primary border-b-2 border-primary'
+              : 'text-gray-600 hover:text-text-dark'
+              }`}
           >
             Projects
           </button>
@@ -444,11 +457,10 @@ const AdminPage = () => {
               setActiveTab('gallery');
               fetchGallery();
             }}
-            className={`px-6 py-3 font-semibold transition ${
-              activeTab === 'gallery'
-                ? 'text-primary border-b-2 border-primary'
-                : 'text-gray-600 hover:text-text-dark'
-            }`}
+            className={`px-6 py-3 font-semibold transition ${activeTab === 'gallery'
+              ? 'text-primary border-b-2 border-primary'
+              : 'text-gray-600 hover:text-text-dark'
+              }`}
           >
             Gallery
           </button>
@@ -628,130 +640,189 @@ const AdminPage = () => {
                 <h2 className="text-2xl font-bold text-text-dark mb-6">
                   {editingId ? 'Edit Project' : 'Add New Project'}
                 </h2>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Project Title *
-                  </label>
-                  <input
-                    type="text"
-                    name="title"
-                    value={formData.title || ''}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
-                    placeholder="Enter project title"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Project Avenue *
-                  </label>
-                  <select
-                    name="avenue"
-                    value={formData.avenue || 'community'}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
-                  >
-                    <option value="club">Club Service</option>
-                    <option value="community">Community Service</option>
-                    <option value="international">International Service</option>
-                    <option value="professional">Professional Service</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                <input
-                  type="checkbox"
-                  name="isSignature"
-                  checked={formData.isSignature || false}
-                  onChange={handleInputChange}
-                  className="w-5 h-5 text-primary rounded focus:ring-2 focus:ring-primary cursor-pointer"
-                />
-                <label className="text-sm font-medium text-gray-700 cursor-pointer">
-                  Mark as Signature Project
-                </label>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Description *
-                </label>
-                <textarea
-                  name="description"
-                  value={formData.description || ''}
-                  onChange={handleInputChange}
-                  required
-                  rows={4}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
-                  placeholder="Enter project description"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Project Image *
-                </label>
-                <div className="space-y-3">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
-                  />
-                  {imagePreview && (
-                    <div className="relative w-full h-48 rounded-lg overflow-hidden border border-gray-300">
-                      <img
-                        src={imagePreview}
-                        alt="Preview"
-                        className="w-full h-full object-cover"
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Project Title *
+                      </label>
+                      <input
+                        type="text"
+                        name="title"
+                        value={formData.title || ''}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+                        placeholder="Enter project title"
                       />
-                      <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                        <span className="text-white text-sm font-medium">Image Preview</span>
-                      </div>
                     </div>
-                  )}
-                </div>
-              </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Project Avenue *
+                      </label>
+                      <select
+                        name="avenue"
+                        value={formData.avenue || 'community'}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+                      >
+                        <option value="club">Club Service</option>
+                        <option value="community">Community Service</option>
+                        <option value="international">International Service</option>
+                        <option value="professional">Professional Service</option>
+                      </select>
+                    </div>
+                  </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Status
-                </label>
-                <select
-                  name="status"
-                  value={formData.status || 'active'}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
-                >
-                  <option value="active">Active</option>
-                  <option value="inactive">Inactive</option>
-                </select>
-              </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Event Date *
+                      </label>
+                      <input
+                        type="date"
+                        name="eventDate"
+                        value={(() => {
+                          if (!formData.eventDate) return '';
+                          if (formData.eventDate.includes('-')) {
+                            const parts = formData.eventDate.split('-');
+                            if (parts[0].length === 4) return formData.eventDate; // Already yyyy-mm-dd
+                            if (parts[2].length === 4) return `${parts[2]}-${parts[1]}-${parts[0]}`; // dd-mm-yyyy to yyyy-mm-dd
+                          }
+                          return '';
+                        })()}
+                        onChange={(e) => {
+                          const ymd = e.target.value;
+                          if (ymd) {
+                            const [y, m, d] = ymd.split('-');
+                            setFormData(prev => ({ ...prev, eventDate: `${d}-${m}-${y}` }));
+                          }
+                        }}
+                        required
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Venue *
+                      </label>
+                      <input
+                        type="text"
+                        name="venue"
+                        value={formData.venue || ''}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+                        placeholder="Enter venue"
+                      />
+                    </div>
+                  </div>
 
-              <div className="flex gap-4">
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="flex-1 bg-primary hover:bg-primary/90 text-white font-semibold py-2 rounded-lg transition disabled:opacity-50"
-                >
-                  {loading ? 'Saving...' : editingId ? 'Update Project' : 'Add Project'}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowForm(false);
-                    resetForm();
-                  }}
-                  className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 rounded-lg transition"
-                >
-                  Cancel
-                </button>
-              </div>
-              </form>
+                  <div className="flex items-center gap-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                    <input
+                      type="checkbox"
+                      name="isSignature"
+                      checked={formData.isSignature || false}
+                      onChange={handleInputChange}
+                      className="w-5 h-5 text-primary rounded focus:ring-2 focus:ring-primary cursor-pointer"
+                    />
+                    <label className="text-sm font-medium text-gray-700 cursor-pointer">
+                      Mark as Signature Project
+                    </label>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      One-Liner Summary (displays on project card) *
+                    </label>
+                    <input
+                      type="text"
+                      name="oneLiner"
+                      value={formData.oneLiner || ''}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+                      placeholder="Enter a short one-liner for the project card"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Full Description (displays in modal) *
+                    </label>
+                    <textarea
+                      name="description"
+                      value={formData.description || ''}
+                      onChange={handleInputChange}
+                      required
+                      rows={4}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+                      placeholder="Enter full project description"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Project Image *
+                    </label>
+                    <div className="space-y-3">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+                      />
+                      {imagePreview && (
+                        <div className="relative w-full h-48 rounded-lg overflow-hidden border border-gray-300">
+                          <img
+                            src={imagePreview}
+                            alt="Preview"
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                            <span className="text-white text-sm font-medium">Image Preview</span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Status
+                    </label>
+                    <select
+                      name="status"
+                      value={formData.status || 'active'}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+                    >
+                      <option value="active">Active</option>
+                      <option value="inactive">Inactive</option>
+                    </select>
+                  </div>
+
+                  <div className="flex gap-4">
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className="flex-1 bg-primary hover:bg-primary/90 text-white font-semibold py-2 rounded-lg transition disabled:opacity-50"
+                    >
+                      {loading ? 'Saving...' : editingId ? 'Update Project' : 'Add Project'}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowForm(false);
+                        resetForm();
+                      }}
+                      className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 rounded-lg transition"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
               </motion.div>
             )}
 
