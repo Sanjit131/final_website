@@ -7,6 +7,11 @@ from datetime import datetime
 from pathlib import Path
 import bcrypt
 from dotenv import load_dotenv
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+from pymongo import MongoClient
+from bson.objectid import ObjectId
 
 # Load environment variables from .env file
 load_dotenv()
@@ -15,313 +20,235 @@ app = Flask(__name__)
 CORS(app)
 
 # Configuration
-PROJECTS_FILE = 'projects.json'
-GALLERY_FILE = 'gallery.json'
-# Load hashed password from environment variable
+MONGO_URI = os.getenv('MONGO_URI')
+CLOUDINARY_CLOUD_NAME = os.getenv('CLOUDINARY_CLOUD_NAME')
+CLOUDINARY_API_KEY = os.getenv('CLOUDINARY_API_KEY')
+CLOUDINARY_API_SECRET = os.getenv('CLOUDINARY_API_SECRET')
+
+# Cloudinary Config
+cloudinary.config(
+    cloud_name=CLOUDINARY_CLOUD_NAME,
+    api_key=CLOUDINARY_API_KEY,
+    api_secret=CLOUDINARY_API_SECRET
+)
+
+# MongoDB Config
+cursor = None
+db = None
+if MONGO_URI:
+    try:
+        client = MongoClient(MONGO_URI)
+        db = client.get_database('racrec_db') # Default DB name
+        # Test connection
+        client.admin.command('ping')
+        print("Connected to MongoDB!")
+    except Exception as e:
+        print(f"MongoDB connection error: {e}")
+else:
+    print("⚠️  WARNING: MONGO_URI not found!")
+
+# Load hashed password
 ADMIN_PASSWORD_HASH = os.getenv('ADMIN_PASSWORD_HASH')
 if not ADMIN_PASSWORD_HASH:
-    print("⚠️  WARNING: ADMIN_PASSWORD_HASH not found in environment variables!")
-    print("Please run 'python setup_password.py' to set up your admin password.")
-    ADMIN_PASSWORD_HASH = bcrypt.hashpw('#Rotaract@RACREC'.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-    print(f"Using temporary password hash. Please set up properly for production.")
-
-UPLOAD_FOLDER = 'uploads'
-GALLERY_FOLDER = 'gallery_uploads'
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
-
-# Create upload folders if they don't exist
-Path(UPLOAD_FOLDER).mkdir(exist_ok=True)
-Path(GALLERY_FOLDER).mkdir(exist_ok=True)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['GALLERY_FOLDER'] = GALLERY_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-def load_projects():
-    """Load projects from JSON file"""
-    if os.path.exists(PROJECTS_FILE):
-        with open(PROJECTS_FILE, 'r') as f:
-            return json.load(f)
-    return []
-
-def save_projects(projects):
-    """Save projects to JSON file"""
-    with open(PROJECTS_FILE, 'w') as f:
-        json.dump(projects, f, indent=2)
+    # Default fallback for safety warning
+    print("⚠️  WARNING: ADMIN_PASSWORD_HASH not found!")
 
 def verify_password(password):
-    """Verify admin password using bcrypt"""
-    if not password:
-        print("DEBUG: No password provided")
-        return False
+    if not password: return False
+    # If no hash is set in env, deny all for security
+    if not ADMIN_PASSWORD_HASH: return False
     try:
-        # Compare provided password with stored hash
-        print(f"DEBUG: Checking password against hash...")
-        print(f"DEBUG: Password length: {len(password)}")
-        print(f"DEBUG: Hash: {ADMIN_PASSWORD_HASH[:20]}...")
-        result = bcrypt.checkpw(password.encode('utf-8'), ADMIN_PASSWORD_HASH.encode('utf-8'))
-        print(f"DEBUG: Verification result: {result}")
-        return result
-    except Exception as e:
-        print(f"Password verification error: {e}")
+        return bcrypt.checkpw(password.encode('utf-8'), ADMIN_PASSWORD_HASH.encode('utf-8'))
+    except Exception:
         return False
 
-def load_gallery():
-    """Load gallery images from JSON file"""
-    if os.path.exists(GALLERY_FILE):
-        with open(GALLERY_FILE, 'r') as f:
-            return json.load(f)
-    return []
+# Helper to serialize MongoDB objects (ObjectId to str)
+def serialize_doc(doc):
+    if not doc: return None
+    doc['id'] = str(doc['_id'])
+    del doc['_id']
+    return doc
 
-def save_gallery(gallery):
-    """Save gallery images to JSON file"""
-    with open(GALLERY_FILE, 'w') as f:
-        json.dump(gallery, f, indent=2)
+# --- API ENDPOINTS ---
 
 @app.route('/api/projects', methods=['GET'])
 def get_projects():
-    """Get all projects"""
-    projects = load_projects()
-    return jsonify(projects)
+    if not db: return jsonify([])
+    projects = list(db.projects.find().sort('id', 1)) # Sorting by ID preservation if needed, or date
+    return jsonify([serialize_doc(p) for p in projects])
 
 @app.route('/api/projects', methods=['POST'])
 def add_project():
-    """Add a new project"""
     password = request.form.get('password')
-    
     if not verify_password(password):
         return jsonify({'error': 'Unauthorized'}), 401
     
-    # Get form data
     title = request.form.get('title')
     description = request.form.get('description')
-    one_liner = request.form.get('oneLiner', '')
-    event_date = request.form.get('eventDate', datetime.now().strftime('%d-%m-%Y'))
-    venue = request.form.get('venue', 'RACREC')
     avenue = request.form.get('avenue')
-    is_signature = request.form.get('isSignature') == 'true'
-    status = request.form.get('status', 'active')
     
     if not all([title, description, avenue]):
-        return jsonify({'error': 'Title, description, and avenue are required'}), 400
-    
-    # Handle image upload
-    image_filename = None
+        return jsonify({'error': 'Required fields missing'}), 400
+
+    # Image Upload to Cloudinary
+    image_url = None
     if 'image' in request.files:
         file = request.files['image']
-        if file and file.filename and allowed_file(file.filename):
-            filename = secure_filename(f"{datetime.now().timestamp()}_{file.filename}")
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            image_filename = filename
-    
-    projects = load_projects()
-    
-    # Create project data
+        if file:
+            try:
+                upload_result = cloudinary.uploader.upload(file)
+                image_url = upload_result['secure_url']
+            except Exception as e:
+                print(f"Cloudinary upload failed: {e}")
+                return jsonify({'error': 'Image upload failed'}), 500
+
+    # Create project
+    # We use timestamps or manual IDs. Let's use auto-incrementing integer ID simulation or just count?
+    # For compatibility with frontend expecting numeric IDs, we might need a counter.
+    # But simple approach: use current timestamp as ID or count.
+    # Let's count existing document for simple ID generation (race condition prone but okay for this scale)
+    count = db.projects.count_documents({})
+    new_id = count + 1
+
     project_data = {
-        'id': len(projects) + 1,
+        'id': new_id,
         'title': title,
         'description': description,
-        'oneLiner': one_liner,
-        'eventDate': event_date,
-        'venue': venue,
+        'oneLiner': request.form.get('oneLiner', ''),
+        'eventDate': request.form.get('eventDate', datetime.now().strftime('%d-%m-%Y')),
+        'venue': request.form.get('venue', 'RACREC'),
         'avenue': avenue,
-        'isSignature': is_signature,
-        'status': status,
-        'image': image_filename,
+        'isSignature': request.form.get('isSignature') == 'true',
+        'status': request.form.get('status', 'active'),
+        'image': image_url,
         'createdAt': datetime.now().isoformat()
     }
     
-    projects.append(project_data)
-    save_projects(projects)
-    
-    return jsonify(project_data), 201
+    result = db.projects.insert_one(project_data)
+    return jsonify(serialize_doc(db.projects.find_one({'_id': result.inserted_id}))), 201
 
 @app.route('/api/projects/<int:project_id>', methods=['PUT'])
 def update_project(project_id):
-    """Update a project"""
     password = request.form.get('password')
-    
     if not verify_password(password):
         return jsonify({'error': 'Unauthorized'}), 401
-    
-    projects = load_projects()
-    project_index = None
-    old_project = None
-    
-    for i, project in enumerate(projects):
-        if project['id'] == project_id:
-            project_index = i
-            old_project = project
-            break
-    
-    if project_index is None:
+        
+    # Find existing
+    project = db.projects.find_one({'id': project_id})
+    if not project:
         return jsonify({'error': 'Project not found'}), 404
-    
-    # Get form data
-    title = request.form.get('title')
-    description = request.form.get('description')
-    one_liner = request.form.get('oneLiner', '')
-    event_date = request.form.get('eventDate', datetime.now().strftime('%d-%m-%Y'))
-    venue = request.form.get('venue', 'RACREC')
-    avenue = request.form.get('avenue')
-    is_signature = request.form.get('isSignature') == 'true'
-    status = request.form.get('status', 'active')
-    
-    if not all([title, description, avenue]):
-        return jsonify({'error': 'Title, description, and avenue are required'}), 400
-    
-    # Handle image upload
-    image_filename = old_project.get('image')
+        
+    # Image Update
+    image_url = project.get('image')
     if 'image' in request.files:
         file = request.files['image']
-        if file and file.filename and allowed_file(file.filename):
-            # Delete old image if exists
-            if image_filename:
-                old_path = os.path.join(app.config['UPLOAD_FOLDER'], image_filename)
-                if os.path.exists(old_path):
-                    os.remove(old_path)
-            
-            filename = secure_filename(f"{datetime.now().timestamp()}_{file.filename}")
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            image_filename = filename
-    
-    # Update project data
-    project_data = {
-        'id': project_id,
-        'title': title,
-        'description': description,
-        'oneLiner': one_liner,
-        'eventDate': event_date,
-        'venue': venue,
-        'avenue': avenue,
-        'isSignature': is_signature,
-        'status': status,
-        'image': image_filename,
-        'createdAt': old_project.get('createdAt', datetime.now().isoformat()),
+        if file:
+            try:
+                upload_result = cloudinary.uploader.upload(file)
+                image_url = upload_result['secure_url']
+            except Exception as e:
+                return jsonify({'error': 'Image upload failed'}), 500
+
+    update_data = {
+        'title': request.form.get('title', project['title']),
+        'description': request.form.get('description', project['description']),
+        'oneLiner': request.form.get('oneLiner', project.get('oneLiner', '')),
+        'eventDate': request.form.get('eventDate', project.get('eventDate')),
+        'venue': request.form.get('venue', project.get('venue')),
+        'avenue': request.form.get('avenue', project.get('avenue')),
+        'isSignature': request.form.get('isSignature') == 'true',
+        'status': request.form.get('status', project.get('status')),
+        'image': image_url,
         'updatedAt': datetime.now().isoformat()
     }
     
-    projects[project_index] = project_data
-    save_projects(projects)
+    db.projects.update_one({'id': project_id}, {'$set': update_data})
     
-    return jsonify(project_data)
+    updated_project = db.projects.find_one({'id': project_id})
+    return jsonify(serialize_doc(updated_project))
 
 @app.route('/api/projects/<int:project_id>', methods=['DELETE'])
 def delete_project(project_id):
-    """Delete a project"""
     password = request.args.get('password')
-    
     if not verify_password(password):
         return jsonify({'error': 'Unauthorized'}), 401
-    
-    projects = load_projects()
-    projects = [p for p in projects if p['id'] != project_id]
-    save_projects(projects)
-    
+        
+    result = db.projects.delete_one({'id': project_id})
+    if result.deleted_count == 0:
+        return jsonify({'error': 'Project not found'}), 404
+        
     return jsonify({'message': 'Project deleted'})
 
-@app.route('/api/uploads/<filename>', methods=['GET'])
-def download_file(filename):
-    """Serve uploaded files"""
-    from flask import send_from_directory
-    try:
-        return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-    except FileNotFoundError:
-        return jsonify({'error': 'File not found'}), 404
+# --- GALLERY ENDPOINTS ---
 
 @app.route('/api/gallery', methods=['GET'])
 def get_gallery():
-    """Get all gallery images"""
-    gallery = load_gallery()
-    return jsonify(gallery)
+    if not db: return jsonify([])
+    images = list(db.gallery.find().sort('id', 1))
+    return jsonify([serialize_doc(img) for img in images])
 
 @app.route('/api/gallery', methods=['POST'])
 def add_gallery_image():
-    """Add a new gallery image"""
     password = request.form.get('password')
-    
     if not verify_password(password):
-        return jsonify({'error': 'Invalid password'}), 401
+        return jsonify({'error': 'Unauthorized'}), 401
     
     if 'image' not in request.files:
         return jsonify({'error': 'No image provided'}), 400
-    
+        
     file = request.files['image']
-    if file.filename == '':
-        return jsonify({'error': 'No file selected'}), 400
+    if not file: return jsonify({'error': 'No file'}), 400
     
-    if not allowed_file(file.filename):
-        return jsonify({'error': 'Invalid file format'}), 400
+    try:
+        upload_result = cloudinary.uploader.upload(file)
+        image_url = upload_result['secure_url']
+        width = upload_result.get('width', 1080)
+        height = upload_result.get('height', 1440)
+    except Exception as e:
+        return jsonify({'error': f'Upload failed: {str(e)}'}), 500
+
+    count = db.gallery.count_documents({})
+    new_id = count + 1
     
-    filename = secure_filename(f"{datetime.now().timestamp()}_{file.filename}")
-    filepath = os.path.join(app.config['GALLERY_FOLDER'], filename)
-    file.save(filepath)
-    
-    # Get image dimensions (basic)
-    gallery = load_gallery()
     new_image = {
-        'id': len(gallery) + 1,
-        'filename': filename,
+        'id': new_id,
+        'filename': image_url, # Storing full URL in filename field for frontend compatibility
         'title': request.form.get('title', 'Gallery Image'),
-        'width': int(request.form.get('width', 1080)),
-        'height': int(request.form.get('height', 1440)),
+        'width': int(request.form.get('width', width)),
+        'height': int(request.form.get('height', height)),
         'createdAt': datetime.now().isoformat()
     }
     
-    gallery.append(new_image)
-    save_gallery(gallery)
-    
-    return jsonify(new_image), 201
+    result = db.gallery.insert_one(new_image)
+    return jsonify(serialize_doc(db.gallery.find_one({'_id': result.inserted_id}))), 201
 
 @app.route('/api/gallery/<int:image_id>', methods=['DELETE'])
 def delete_gallery_image(image_id):
-    """Delete a gallery image"""
     password = request.args.get('password')
-    
     if not verify_password(password):
-        return jsonify({'error': 'Invalid password'}), 401
-    
-    gallery = load_gallery()
-    image = next((img for img in gallery if img['id'] == image_id), None)
-    
-    if not image:
+        return jsonify({'error': 'Unauthorized'}), 401
+        
+    # Optional: Delete from Cloudinary if we stored public_id
+    # For now just delete record
+    result = db.gallery.delete_one({'id': image_id})
+    if result.deleted_count == 0:
         return jsonify({'error': 'Image not found'}), 404
-    
-    # Delete file
-    filepath = os.path.join(app.config['GALLERY_FOLDER'], image['filename'])
-    if os.path.exists(filepath):
-        os.remove(filepath)
-    
-    gallery = [img for img in gallery if img['id'] != image_id]
-    save_gallery(gallery)
-    
-    return jsonify({'message': 'Image deleted'}), 200
-
-@app.route('/api/gallery-uploads/<filename>', methods=['GET'])
-def serve_gallery_image(filename):
-    """Serve gallery images"""
-    from flask import send_from_directory
-    return send_from_directory(app.config['GALLERY_FOLDER'], filename)
+        
+    return jsonify({'message': 'Image deleted'})
 
 @app.route('/api/login', methods=['POST'])
 def login():
-    """Verify admin password"""
     password = request.json.get('password') if request.is_json else request.form.get('password')
-    
-    if not password:
-        return jsonify({'error': 'Password required'}), 400
-    
     if verify_password(password):
         return jsonify({'success': True, 'message': 'Login successful'}), 200
-    else:
-        return jsonify({'error': 'Invalid password'}), 401
+    return jsonify({'error': 'Invalid password'}), 401
 
 @app.route('/api/health', methods=['GET'])
 def health():
-    """Health check endpoint"""
-    return jsonify({'status': 'ok'})
+    return jsonify({
+        'status': 'ok',
+        'database': 'connected' if db is not None else 'disconnected'
+    })
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000, host='0.0.0.0')

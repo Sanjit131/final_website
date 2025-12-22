@@ -32,3 +32,13 @@ backend/*.json
 backend/.env
 backend/*.pyc
 .env
+
+# Tools
+ngrok.exe
+ngrok.zip
+
+# Vercel
+.vercel
+
+# Legacy
+public/old_site/

@@ -1,0 +1,10 @@
+# Vercel Ignore File
+ngrok.exe
+ngrok.zip
+backend/venv
+.env
+.git
+.github
+.vscode
+**/*.log
+**/*.tmp

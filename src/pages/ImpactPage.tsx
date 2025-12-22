@@ -20,7 +20,7 @@ const ImpactPage = () => {
           date: p.eventDate || (p.createdAt ? new Date(p.createdAt).toLocaleDateString('en-GB').replace(/\//g, '-') : 'Recent'),
           location: p.venue || 'RACREC',
           description: p.oneLiner || p.description,
-          image: p.image ? `${API_BASE_URL}/uploads/${p.image}` : '/default-image.jpg',
+          image: p.image ? (p.image.startsWith('http') ? p.image : `${API_BASE_URL}/uploads/${p.image}`) : '/default-image.jpg',
           category: p.avenue,
           details: p.description,
           isSignature: p.isSignature,
