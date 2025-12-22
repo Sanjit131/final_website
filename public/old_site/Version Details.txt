@@ -1,7 +1,0 @@
- CREATED BY
-    ASHWATH M, Deputy Sergeant-At-Arms, RCREC 24-25
-    SANJEEVAN HARI SUDHAKAR, Sergeant-At-Arms, RCREC 24-25
-    SUJITH S, Associate Professional service Director and Technical Head, RCREC 24-25
-
-Version 1.4 - 15/02/2024
-	-> First Launch
