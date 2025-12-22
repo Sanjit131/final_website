@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FiInstagram, FiLinkedin, FiMail, FiMapPin, FiPhoneCall } from 'react-icons/fi';
-import { BsFillWrenchAdjustableCircleFill, BsWhatsapp } from 'react-icons/bs';
+import { BsWhatsapp } from 'react-icons/bs';
 
 const Footer = () => {
   return (

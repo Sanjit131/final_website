@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { BiSolidDonateBlood, BiSolidUser } from 'react-icons/bi';
-import { BsAwardFill, BsFillHeartFill, BsFillLightbulbFill, BsGraphUpArrow, BsHeart } from 'react-icons/bs';
-import { FiCalendar, FiAward, FiUsers, FiHeart, FiEye, FiVideo, FiZoomIn, FiCheckCircle, FiPower } from 'react-icons/fi';
+import { BsAwardFill, BsFillHeartFill, BsFillLightbulbFill, BsGraphUpArrow } from 'react-icons/bs';
+import { FiCalendar, FiAward, FiHeart, FiEye, FiVideo } from 'react-icons/fi';
 
 const StoryPage = () => {
   const timeline = [
