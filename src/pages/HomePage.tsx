@@ -5,7 +5,7 @@ import { FiUsers, FiAward, FiHeart, FiGlobe } from 'react-icons/fi';
 import AnimatedCounter from '../components/AnimatedCounter';
 
 import CircularGallery from '../components/CircularGallery';
-import { API_BASE_URL } from '../config';
+import { projects } from '../data/projects';
 
 const FLAGSHIP_PROJECTS = [
   { image: '/gallery/food_donation.png', text: 'Anna Vriksha' },
@@ -24,18 +24,7 @@ export default function HomePage() {
   const [projectCount, setProjectCount] = useState(0);
 
   useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await fetch(`${API_BASE_URL}/projects`);
-        if (response.ok) {
-          const data = await response.json();
-          setProjectCount(data.length);
-        }
-      } catch (error) {
-        console.error('Failed to fetch projects:', error);
-      }
-    };
-    fetchProjects();
+    setProjectCount(projects.length);
   }, []);
 
   useEffect(() => {

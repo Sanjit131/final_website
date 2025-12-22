@@ -28,7 +28,7 @@ backend/venv/
 backend/__pycache__/
 backend/uploads/
 backend/gallery_uploads/
-backend/*.json
+
 backend/.env
 backend/*.pyc
 .env

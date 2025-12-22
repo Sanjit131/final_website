@@ -1,41 +1,32 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProjectCard from '../components/ProjectCard';
-import { API_BASE_URL } from '../config';
+
+import { projects as staticProjects } from '../data/projects';
 
 const ImpactPage = () => {
   const [activeFilter, setActiveFilter] = useState('all');
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch projects from backend API
+  // Load projects from static data
   useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await fetch(`${API_BASE_URL}/projects`);
-        const data = await response.json();
-        const backendProjects = data.map((p: any) => ({
-          id: p.id, // Use actual ID from backend
-          title: p.title,
-          date: p.eventDate || (p.createdAt ? new Date(p.createdAt).toLocaleDateString('en-GB').replace(/\//g, '-') : 'Recent'),
-          location: p.venue || 'RACREC',
-          description: p.oneLiner || p.description,
-          image: p.image ? (p.image.startsWith('http') ? p.image : `${API_BASE_URL}/uploads/${p.image}`) : '/default-image.jpg',
-          category: p.avenue,
-          details: p.description,
-          isSignature: p.isSignature,
-          status: p.status
-        }));
-        setProjects(backendProjects);
-        setLoading(false);
-      } catch (error) {
-        console.error('Failed to fetch projects from backend:', error);
-        setProjects([]); // Don't fall back to old projects as requested
-        setLoading(false);
-      }
-    };
-
-    fetchProjects();
+    const formattedProjects = staticProjects.map((p: any) => ({
+      id: p.id,
+      title: p.title,
+      // Handle date formatting
+      date: p.eventDate || (p.createdAt ? new Date(p.createdAt).toLocaleDateString('en-GB').replace(/\//g, '-') : 'Recent'),
+      location: p.venue || 'RACREC',
+      description: p.oneLiner || p.description,
+      // Image is already correct path in static data (/uploads/...) or URL
+      image: p.image || '/default-image.jpg',
+      category: p.avenue,
+      details: p.description,
+      isSignature: p.isSignature,
+      status: p.status
+    }));
+    setProjects(formattedProjects);
+    setLoading(false);
   }, []);
 
 

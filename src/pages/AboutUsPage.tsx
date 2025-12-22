@@ -10,7 +10,7 @@ const AboutUsPage = () => {
                     <b>The Rotaract Club of Rajalakshmi Engineering College</b> sponsored by the Rotary Club of Chennai K.K. Nagar is dedicated to fostering leadership, service, and fellowship among its members. As part of Rotary International's network, the club comes under <b>Rotary International District 3233</b> engages in various community service projects, professional development activities, and international initiatives. It serves as a platform for students to develop leadership skills, participate in social impact projects, and collaborate with local and international communities.
                 </p>
             ),
-            image: "/public/REC AND RACREC.png",
+            image: "/REC AND RACREC.png",
             link: "https://www.rajalakshmi.org/",
             linkText: "Rajalakshmi Website"
         },

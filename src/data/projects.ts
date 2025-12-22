@@ -1,130 +1,191 @@
-export const projects = [
-    // Community Service events from public/Communityservice
-    {
-        id: 10,
-        title: "Udhiram",
-        date: "12th October 2024, 3rd April 2025",
-        location: "Indoor Auditorium, Rajalakshmi Engineering College",
-        description: "A successful blood donation camp uniting students for a life-saving cause.",
-        image: "/Communityservice/Udhiram.jpg",
-        category: "community",
-        details: "A total of 1,502 units of blood were collected in two drives held on 12th October 2024 and 3rd April 2025, with 780 and 722 units respectively, showcasing an inspiring spirit of service and compassion."
-    },
-    {
-        id: 11,
-        title: "Guru Prashansa 2.0",
-        date: "5th September 2024",
-        location: "Rajalakshmi Engineering College",
-        description: "A heartfelt Teachers’ Day tribute celebrating mentorship and guidance.",
-        image: "/Communityservice/Guru_Prashansa.jpg",
-        category: "community",
-        details: "Guru Prashansa 2.0 honored educators for their dedication and impact on shaping young minds. The celebration included distributing sweets as a token of appreciation and gifting personalized motivational cards to inspire and acknowledge teachers’ invaluable contributions."
-    },
-    {
-        id: 12,
-        title: "Silent Streets",
-        date: "30th January 2025",
-        location: "Rajalakshmi Engineering College",
-        description: "A powerful mime performance spreading road safety awareness through expressions and actions.",
-        image: "/Communityservice/Silent_Streets.jpg",
-        category: "community",
-        details: "Silent Streets used the art of mime to highlight the dangers of careless driving, emphasizing the importance of road safety. With synchronized movements and impactful gestures, performers engaged the audience and delivered the message in a creative, dialogue-free manner."
-    },
+export interface Project {
+    id: number;
+    title: string;
+    description: string;
+    oneLiner: string;
+    eventDate: string;
+    venue: string;
+    avenue: string;
+    isSignature: boolean;
+    status: string;
+    image: string;
+    createdAt?: string;
+    updatedAt?: string;
+    details?: string; // Optional for compatibility
+}
 
-    // International Service events from public/internationalservice
+export const projects: Project[] = [
     {
-        id: 13,
-        title: "Letterhead Exchange",
-        date: "11 August 2025",
-        location: "Anna Nagar Tower Park",
-        description: "Strengthening global bonds through our first-ever Twin Club Agreement.",
-        image: "/internationalservice/Letterhead_Exchange.jpg",
-        category: "international",
-        details: "The International Service Avenue of RACREC achieved a major milestone this year with the signing of its first Twin Club Agreement, fostering global partnerships, cultural exchange, and collaborative projects that align with international goals."
+        "id": 1,
+        "title": "UDHIRAM",
+        "description": "Udhiram, the club's signature blood donation initiative, witnessed massive participation from students, faculty, and the public. With eight hospitals operating simultaneously, volunteers managed registrations, logistics, and donor flow efficiently. The drive successfully collected 650 units of blood, reinforcing the club's legacy in community health service.",
+        "oneLiner": "A large-scale blood donation drive creating life-saving impact.",
+        "eventDate": "09-10-2025",
+        "venue": "Indoor Auditorium, REC",
+        "avenue": "community",
+        "isSignature": true,
+        "status": "active",
+        "image": "/uploads/1766334252.090089_IMG_3163.JPG",
+        "createdAt": "2025-12-21T21:54:12.097867",
+        "updatedAt": "2025-12-22T07:56:06.377009"
     },
     {
-        id: 14,
-        title: "Red Ribbon Reach",
-        date: "11 August 2025",
-        location: "Google Meet (Online)",
-        description: "Raising awareness on infection risks through expert insights.",
-        image: "/internationalservice/Red_Ribbon_Reach.jpg",
-        category: "international",
-        details: "An enlightening virtual session led by Poongodi Santhanakumarsamy, focusing on the chances of infection, modes of transmission, and preventive measures. The event aimed to spread accurate medical awareness among participants for informed health practices."
+        "id": 2,
+        "title": "Uzhavaram",
+        "description": "Uzhavaram marked the first project of the tenure, bringing Rotaractors together for a temple cleanup drive at Nagathamman Temple. The day began with a pooja, followed by systematic cleaning of the rooftop and temple premises. Volunteers worked with dedication, restoring cleanliness and serenity to the sacred space. The project concluded with a final pooja and appreciation from the Temple Committee, setting a strong service-oriented tone for the year.",
+        "oneLiner": "A purpose-driven temple cleanup initiating the Rotaract year with service and spirituality.",
+        "eventDate": "06-07-2025",
+        "venue": "Nagathamman Temple, Kodambakkam",
+        "avenue": "community",
+        "isSignature": false,
+        "status": "active",
+        "image": "/uploads/1766336011.427097_IMG-20250706-WA0149.jpg",
+        "createdAt": "2025-12-21T22:23:31.437046"
     },
     {
-        id: 15,
-        title: "The Twin Pact",
-        date: "11 August 2025",
-        location: "Google Meet (Online)",
-        description: "Empowering minds with knowledge on infection risks and prevention.",
-        image: "/internationalservice/The_Twin_Pact.jpg",
-        category: "international",
-        details: "A virtual awareness session led by Poongodi Santhanakumarsamy, focusing on chances of infection, modes of transmission, and preventive measures. The session provided participants with factual insights to make informed health choices and spread awareness within their communities."
-    },
-
-    // Professional Service events from public/Professonialservice
-    {
-        id: 16,
-        title: "Prompt IQ",
-        date: "28 February 2025",
-        location: "Idea Factory, Rajalakshmi Engineering College",
-        description: "Unleashing creativity through the art and science of prompt engineering.",
-        image: "/Professonialservice/Prompt _IQ.jpg",
-        category: "professional",
-        details: "PromptIQ, hosted by the Rotaract Club of Rajalakshmi Engineering College in collaboration with the IEEE Computer Society of REC, was an intellectually stimulating event exploring the world of prompt engineering. Featuring interactive activities, team-based problem-solving, and an engaging keynote by Mr. Gokul V, the session equipped participants with practical AI communication skills, real-world use cases, and best practices to inspire innovation."
+        "id": 3,
+        "title": "Sayonara",
+        "description": "Sayonara was a warm farewell event organized to honor senior Rotaractors. The celebration began with a cheerful gathering and lunch, followed by shared stories and photo moments. The evening continued at Chetpet Eco Park with a cake-cutting ceremony, emotional reflections, and gratitude-filled conversations. The event beautifully celebrated friendships, transitions, and lasting connections beyond the Rotaract journey.",
+        "oneLiner": "A heartfelt farewell celebrating memories, mentorship, and meaningful bonds.",
+        "eventDate": "20-07-2025",
+        "venue": "Nahdi Mandi, Arumbakkam & Chetpet Eco Park",
+        "avenue": "club",
+        "isSignature": false,
+        "status": "active",
+        "image": "/uploads/1766336248.469625_IMG_0119.JPG",
+        "createdAt": "2025-12-21T22:27:28.488772"
     },
     {
-        id: 17,
-        title: "Victo-Ryla",
-        date: "30 April 2025",
-        location: "Rajalakshmi Engineering College",
-        description: "Empowering youth through leadership, confidence, and service.",
-        image: "/Professonialservice/Victo_Ryla.jpg",
-        category: "professional",
-        details: "VICTO-RYLA ‘25 was a one-day leadership summit by the Rotaract Club of Rajalakshmi Engineering College, designed to inspire and empower young individuals through impactful sessions and engaging activities. With powerful talks from renowned speakers including entrepreneurs, innovators, AI specialists, and mental health advocates, the event fostered leadership skills, confidence, and a spirit of service among youth."
+        "id": 4,
+        "title": "Thoorigai",
+        "description": "Thoorigai was a career guidance and STEM awareness program aimed at motivating school students. The session featured insightful talks on career planning, overcoming fear, engineering opportunities, and the role of STEM and AI in education. Interactive discussions and real-world insights empowered students to think confidently about their future paths.",
+        "oneLiner": "Inspiring young minds to explore careers through STEM awareness.",
+        "eventDate": "09-08-2025",
+        "venue": "Kalpavriksha Tuition Centre, West Mambalam",
+        "avenue": "professional",
+        "isSignature": false,
+        "status": "active",
+        "image": "/uploads/1766336473.53081_20250809_133106.jpg",
+        "createdAt": "2025-12-21T22:31:13.536840"
     },
     {
-        id: 18,
-        title: "Figma Flow",
-        date: "28th August, 2024",
-        location: "Online (Google Meet)",
-        description: "Interactive virtual session on UI/UX design with Figma, blending theory and hands-on practice.",
-        image: "/Professonialservice/Figma_Flow.jpg",
-        category: "professional",
-        details: "A virtual session introducing students to UI/UX design with a focus on Figma, covering design thinking, user-centered approaches, and practical demonstrations."
-    },
-
-
-    // Club Service events from public/clubservice
-    {
-        id: 7,
-        title: "Actopia",
-        date: "29th September 2024",
-        location: "Anna Nagar Tower Park",
-        description: "A fun-filled joint event bonding over games, laughter, and new connections.",
-        image: "/clubservice/Actopia.jpg",
-        category: "club",
-        details: "Actopia brought together members from two clubs for a day of icebreaker games, laughter, and camaraderie. The lively dumb charades session set the tone for stronger bonds and future collaborations."
+        "id": 5,
+        "title": "ARAM",
+        "description": "ARAM marked the 16th Installation Ceremony of the Rotaract Club of Rajalakshmi Engineering College. The event formally inducted the President and Executive Team for the new tenure, featuring ceremonial traditions, leadership handover, introduction of core and board officials, and the launch of official club collaterals. The ceremony symbolized continuity, responsibility, and a promising beginning.",
+        "oneLiner": "Our 16th installation ceremony ushering in a new Rotaract leadership.",
+        "eventDate": "12-08-2025",
+        "venue": "Main Seminar Hall, Rajalakshmi Engineering College",
+        "avenue": "professional",
+        "isSignature": false,
+        "status": "active",
+        "image": "/uploads/1766336992.478559_Copy_of_IMG_1433.JPG",
+        "createdAt": "2025-12-21T22:39:52.507099",
+        "updatedAt": "2025-12-21T23:14:31.122250"
     },
     {
-        id: 8,
-        title: "Memomania",
-        date: "19th Feb 2025",
-        location: "Online (Gmeet)",
-        description: "A virtual celebration of humor and creativity through fun, lighthearted memes.",
-        image: "/clubservice/Memomania.jpg",
-        category: "club",
-        details: "Memomania brought members together online to share and enjoy witty, respectful, and relatable memes, sparking laughter and strengthening bonds in a lively virtual setting."
+        "id": 6,
+        "title": "Mirage",
+        "description": "Mirage was a joint virtual session conducted with the Rotaract Club of PSGR Krishnammal College for Women. Centered on innovation and technology, the event featured expert talks on ideation, startups, sustainability, and entrepreneurship. Interactive activities and discussions encouraged creative thinking and cross-club collaboration.",
+        "oneLiner": "A collaborative virtual meet exploring innovation and technology.",
+        "eventDate": "26-08-2025",
+        "venue": "Google Meet (Online)",
+        "avenue": "professional",
+        "isSignature": false,
+        "status": "active",
+        "image": "/uploads/1766337091.926543_IMG-20251104-WA0016_1.jpg",
+        "createdAt": "2025-12-21T22:41:31.929902"
     },
     {
-        id: 9,
-        title: "Brunch 'N' Bowl",
-        date: "12th Aug 2024",
-        location: "Besant Nagar, Edward's Elliot's Beach",
-        description: "Morning at Besant Nagar Beach followed by a hearty brunch, bonding over food and laughter.",
-        image: "/clubservice/Brunch'N'Bowl.jpg",
-        category: "club",
-        details: "Members enjoyed a serene morning at Besant Nagar Beach, soaking in the calm breeze and connecting through conversations. The outing ended with a delightful brunch at Murugan Idli Shop, filled with authentic flavors, laughter, and bonding moments."
+        "id": 7,
+        "title": "Design Decode",
+        "description": "Design Decode was an online training session aimed at enhancing members' graphic design skills. Participants learned Photoshop fundamentals, advanced tools, and real-time poster creation. The practical approach, combined with interactive Q&A, made the session both engaging and skill-oriented.",
+        "oneLiner": "A hands-on Photoshop workshop unlocking creative design skills.",
+        "eventDate": "28-08-2025",
+        "venue": "Google Meet (Online)",
+        "avenue": "professional",
+        "isSignature": false,
+        "status": "active",
+        "image": "/uploads/1766337186.560972_d2.jpeg",
+        "createdAt": "2025-12-21T22:43:06.567288"
+    },
+    {
+        "id": 8,
+        "title": "Decode DaVinci",
+        "description": "Decode DaVinci was an online video editing workshop focusing on DaVinci Resolve. Members were guided through the interface, advanced editing techniques, color grading, masking, and 3D text creation. Live demonstrations and interactive discussions empowered participants to confidently explore video production.",
+        "oneLiner": "Mastering video editing through structured DaVinci Resolve training.",
+        "eventDate": "31-08-2025",
+        "venue": "Google Meet (Online)",
+        "avenue": "professional",
+        "isSignature": false,
+        "status": "active",
+        "image": "/uploads/1766337241.303522_v2.png",
+        "createdAt": "2025-12-21T22:44:01.309481"
+    },
+    {
+        "id": 9,
+        "title": "Anna Vriksha 2.0",
+        "description": "Anna Vriksha 2.0 focused on distributing wholesome meals to the homeless across multiple localities. Volunteers worked in teams to ensure respectful and efficient distribution, connecting meaningfully with the community. The initiative strengthened social responsibility and empathy among members.",
+        "oneLiner": "A compassionate food distribution drive serving the underserved.",
+        "eventDate": "19-10-2025",
+        "venue": "Urban Square, Guindy",
+        "avenue": "community",
+        "isSignature": false,
+        "status": "active",
+        "image": "/uploads/1766337414.552856_20251019_115005_1.jpg",
+        "createdAt": "2025-12-21T22:46:54.559774",
+        "updatedAt": "2025-12-21T22:47:32.535920"
+    },
+    {
+        "id": 10,
+        "title": "From Coffee to Covers",
+        "description": "From Coffee to Covers was a joint virtual fellowship with the Rotaract Club of MOP Vaishnav College for Women. Through icebreakers, games, and interactive activities, members bonded over shared Rotaract experiences. The session overflowed with laughter, reflections, and genuine camaraderie, capturing the essence of fellowship.",
+        "oneLiner": "A lively virtual fellowship turning conversations into connections.",
+        "eventDate": "21-10-2025",
+        "venue": "Google Meet (Online)",
+        "avenue": "club",
+        "isSignature": false,
+        "status": "active",
+        "image": "/uploads/1766337534.219281_IMG-20251104-WA0023.jpg",
+        "createdAt": "2025-12-21T22:48:54.220553"
+    },
+    {
+        "id": 11,
+        "title": "The First Step",
+        "description": "The First Step introduced members to the history, values, and opportunities within Rotary and Rotaract. The session covered avenues of service, district platforms, and impactful humanitarian initiatives, leaving members informed, inspired, and motivated to actively engage in Rotaract.",
+        "oneLiner": "An orientation session laying the foundation of Rotary and Rotaract.",
+        "eventDate": "25-11-2025",
+        "venue": "Google Meet (Online)",
+        "avenue": "professional",
+        "isSignature": false,
+        "status": "active",
+        "image": "/uploads/1766337620.620755_WhatsApp_Image_2025-11-25_at_6.23.19_PM.jpeg",
+        "createdAt": "2025-12-21T22:50:20.628794"
+    },
+    {
+        "id": 12,
+        "title": "Ascend",
+        "description": "Ascend was a structured seminar focusing on teamwork, time management, and leadership. Where Our Past Presidents shared practical insights and real-life experiences, equipping members with essential skills for personal growth and effective club functioning.",
+        "oneLiner": "A leadership and skill-building seminar shaping future Rotaractors.",
+        "eventDate": "30-11-2025",
+        "venue": "Google Meet (Online)",
+        "avenue": "professional",
+        "isSignature": false,
+        "status": "active",
+        "image": "/uploads/1766337895.682467_Screenshot_2025-11-30_163046.png",
+        "createdAt": "2025-12-21T22:54:55.684543"
+    },
+    {
+        "id": 13,
+        "title": "Bowls & Bonds",
+        "description": "Bowls & Bonds was a vibrant board members' meet-up marking the start of a new tenure. What began as casual introductions quickly turned into a lively session filled with bowling, music, laughter, and team bonding. The event fostered unity between core and board members and concluded with a shared lunch, setting the foundation for a collaborative and enthusiastic Rotaract year.",
+        "oneLiner": "A high-energy board meet blending bowling, bonding, and team spirit.",
+        "eventDate": "02-08-2025",
+        "venue": "Du Bowl, Thousand Lights",
+        "avenue": "club",
+        "isSignature": false,
+        "status": "active",
+        "image": "/uploads/1766340154.757871_Untitled_design_5-min.png",
+        "createdAt": "2025-12-21T22:59:27.352714",
+        "updatedAt": "2025-12-21T23:32:34.786799"
     }
 ];
