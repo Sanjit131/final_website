@@ -25,7 +25,7 @@ export const projects: Project[] = [
         "avenue": "community",
         "isSignature": true,
         "status": "active",
-        "image": "/public/uploads/IMG_3163.JPG",
+        "image": "/uploads/IMG_3163.JPG",
         "createdAt": "2025-12-21T21:54:12.097867",
         "updatedAt": "2025-12-22T07:56:06.377009"
     },
@@ -78,7 +78,7 @@ export const projects: Project[] = [
         "avenue": "professional",
         "isSignature": false,
         "status": "active",
-        "image": "/public/uploads/Copy of IMG_1433.JPG",
+        "image": "/uploads/Copy of IMG_1433.JPG",
         "createdAt": "2025-12-21T22:39:52.507099",
         "updatedAt": "2025-12-21T23:14:31.122250"
     },
@@ -92,7 +92,7 @@ export const projects: Project[] = [
         "avenue": "professional",
         "isSignature": false,
         "status": "active",
-        "image": "/public/uploads/IMG-20251104-WA0016 (1).jpg",
+        "image": "/uploads/IMG-20251104-WA0016 (1).jpg",
         "createdAt": "2025-12-21T22:41:31.929902"
     },
     {

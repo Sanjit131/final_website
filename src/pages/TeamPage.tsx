@@ -17,7 +17,7 @@ const TeamPage = () => {
     { name: "Rtr. Sanjit M", title: "President 25-26", image: "/core/RTR SANJIT.png" },
     { name: "Rtr. Nandhini M", title: "Vice President 25-26", image: "/core/RTR. NANDHINI M.jpg", imageClassName: "object-[center_20%]" },
     { name: "Rtr. Shrinidhi R", title: "Secretary 25-26", image: "/core/RTR. SHRINIDHI R.jpg" },
-    { name: "Rtr. Nethra Shree T D", title: "Joint Secretary 25-26", image: "/public/core/Untitled design (6).png" },
+    { name: "Rtr. Nethra Shree T D", title: "Joint Secretary 25-26", image: "/public/core/RTR. NETHRA.png" },
     { name: "Rtr. Architha M", title: "Sergeant-At-Arms 25-26", image: "/core/RTR. ARCHITHA M.jpg" },
     { name: "Rtr. Sivadharshan M S", title: "Deputy Sergeant-At-Arms 25-26", image: "/core/RTR. SIVADHARSHAN M S .JPG" },
     { name: "Rtr. Siva Sooryaa", title: "Club Advisor 25-26", image: "/core/RTR. SA SIVA SOORYAA.jpg" },
@@ -38,18 +38,18 @@ const TeamPage = () => {
     { name: "Rtr. Srisanjana B", title: "Videography Head 25-26", image: "/core/RTR. SRISANJANA B.jpg" },
     { name: "Rtr. Jayaprakash", title: "Membership Development Head 25-26", image: "/core/RTR. JAYAPRAKASH.jpg" },
     { name: "Rtr. Mukesh Kumar K", title: "Associate Membership Development Head 25-26", image: "/core/RTR. MUKESH KUMAR K.jpg" },
-    { name: "RTR. HARISH T", title: "Technical Head 25-26", image: "/core/RTR. HARISH T.jpg" },
+    { name: "RTR. HARISH T", title: "Technical Head 25-26 & Website Developer", image: "/core/RTR. HARISH T.jpg" },
   ];
 
   const boardCoordinators = [
     { name: "Rtr. Aadithya R", title: "Club Coordinator 25-26", image: "/board/Aadithya R.jpeg" },
     { name: "Rtr. Adithya N", title: "Club Coordinator 25-26", image: "/board/Adithya N.PNG" },
-    { name: "Rtr. Akshara G", title: "Club Coordinator 25-26", image: "/board/Akshara G.jpg" },
-    { name: "Rtr. Akshith R", title: "Club Coordinator 25-26", image: "/board/Akshith R.jpg" },
+    { name: "Rtr. Akshara G", title: "Club Coordinator 25-26", image: "/board/Akshara G.png" },
+    { name: "Rtr. Akshith R", title: "Club Coordinator 25-26", image: "/board/Akshith R.jpg", imageClassName: "object-[center_0%]" },
     { name: "Rtr. Angel Antony", title: "Club Coordinator 25-26", image: "/board/Angel Antony.png" },
     { name: "Rtr. Anuradha V", title: "Club Coordinator 25-26", image: "/board/Anuradha V.png" },
     { name: "Rtr. Harish Bhuvan S", title: "Club Coordinator 25-26", image: "/board/Harish Bhuvan S.png" },
-    { name: "Rtr. Irfana S", title: "Club Coordinator 25-26", image: "/board/Irfana S.jpg" },
+    { name: "Rtr. Irfana S", title: "Club Coordinator 25-26", image: "/board/Irfana S.png" },
     { name: "Rtr. K Srihari", title: "Club Coordinator 25-26", image: "/board/K Srihari.jpg" },
     { name: "Rtr. Lakshan S", title: "Club Coordinator 25-26", image: "/board/Lakshan S.png" },
     { name: "Rtr. Meenashi S", title: "Club Coordinator 25-26", image: "/board/Meenashi S.jpg" },
@@ -64,7 +64,7 @@ const TeamPage = () => {
     { name: "Rtr. Shreenidhi T", title: "Club Coordinator 25-26", image: "/board/Shreenidhi T.jpg" },
     { name: "Rtr. Varshini S", title: "Club Coordinator 25-26", image: "/board/Varshini S.JPG" },
     { name: "Rtr. Vinesh D", title: "Club Coordinator 25-26", image: "/board/Vinesh D.jpg" },
-    { name: "Rtr. Yugendran P", title: "Club Coordinator 25-26", image: "/board/Yugendran P.jpg" },
+    { name: "Rtr. Yugendran P", title: "Club Coordinator 25-26", image: "/board/Yugendran P.png" },
     { name: "Rtr. Yuvasri K", title: "Club Coordinator 25-26", image: "/board/Yuvasri K.jpg" }
   ];
 
