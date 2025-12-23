@@ -39,6 +39,3 @@ ngrok.zip
 
 # Vercel
 .vercel
-
-# Legacy
-public/old_site/
